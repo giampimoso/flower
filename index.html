@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mazzo di Fiori Animato con Prato</title>
+  <style>
+    /* Impostazioni di base */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #a8d5ba;
+      overflow: hidden;
+      font-family: sans-serif;
+      position: relative;
+      height: 100vh;
+    }
+    /* Prato */
+    .meadow {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(to top, #388e3c, transparent);
+      z-index: 0;
+    }
+    /* Aggiungiamo qualche spuntino d'erba per maggior realismo */
+    .meadow .grass {
+      position: absolute;
+      bottom: 0;
+      width: 2px;
+      height: 20px;
+      background-color: #2e7d32;
+    }
+    .anigrass1{ animation: grass-sway1 3s infinite ease-in-out alternate;}
+    .anigrass2{ animation: grass-sway2 2s infinite ease-in-out alternate;}
+    .anigrass3{ animation: grass-sway3 3s infinite ease-in-out alternate;}
+    .anigrass4{ animation: grass-sway4 2.5s infinite ease-in-out alternate;}
+
+    @keyframes grass-sway1 {
+      0% { transform: rotate(-10deg); }
+      50% { transform: rotate(0deg); }
+      100% { transform: rotate(10deg); }
+    }
+    @keyframes grass-sway2 {
+      0% { transform: rotate(-5deg); }
+      50% { transform: rotate(0deg); }
+      100% { transform: rotate(5deg); }
+    }
+    @keyframes grass-sway3 {
+          0% { transform: rotate(-18deg); }
+          50% { transform: rotate(0deg); }
+          100% { transform: rotate(18deg); }
+        }
+    @keyframes grass-sway4 {
+          0% { transform: rotate(15deg); }
+          50% { transform: rotate(0deg); }
+          100% { transform: rotate(-15deg); }
+        }
+    /* Container dei fiori */
+    .bouquet {
+      position: absolute;
+      bottom: 0px; /* sopra il prato */
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: flex-end;
+      z-index: 1;
+    }
+
+    /* Steli comuni */
+    .stem{
+      position: relative;
+      width: 10px;
+      background: linear-gradient(to top, #2e7d32, #66bb6a);
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+    .stem::before, .stem::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 9px;
+      background-color: darkgreen;
+      border-radius: 50%;
+    }
+    .stem::before { top: 40%; left: -15px; }
+    .stem::after { top: 60%; right: -15px; }
+
+    /* Varianti di lunghezza per gli steli */
+    .stem.stem-rose    { height: 90px; }
+    .stem.stem-daisy   { height: 130px; }
+    .stem.stem-sunflower { height: 210px; }
+
+    /* Animazioni di oscillazione degli steli */
+    .swing1 { animation: swing1 3s infinite ease-in-out alternate; }
+    .swing2 { animation: swing2 4s infinite ease-in-out alternate; }
+    .swing3 { animation: swing3 3.5s infinite ease-in-out alternate; }
+    @keyframes swing1 {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+    @keyframes swing2 {
+      0% { transform: rotate(-3deg); }
+      100% { transform: rotate(3deg); }
+    }
+    @keyframes swing3 {
+      0% { transform: rotate(-7deg); }
+      100% { transform: rotate(7deg); }
+    }
+
+    /* Animazione comune per i petali */
+    @keyframes petal-bloom {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Posizionamento base del fiore sopra lo stelo */
+    .flower {
+      position: absolute;
+      transform: translateX(-50%);
+      position: relative;
+    }
+
+    /* ----- FIORE: ROSA ----- */
+    .flower.rose {
+      top: -50px;
+      left: -80%;
+      width: 60px;
+      height: 60px;
+    }
+    .flower.rose .petal {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-image: radial-gradient(#e63946, #c20606);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+    }
+    /* 6 petali distribuiti ogni 60° */
+    .flower.rose .petal:nth-child(1) { transform: rotate(0deg) translateY(-20px); }
+    .flower.rose .petal:nth-child(2) { transform: rotate(60deg) translateY(-20px); }
+    .flower.rose .petal:nth-child(3) { transform: rotate(120deg) translateY(-20px); }
+    .flower.rose .petal:nth-child(4) { transform: rotate(180deg) translateY(-20px); }
+    .flower.rose .petal:nth-child(5) { transform: rotate(240deg) translateY(-20px); }
+    .flower.rose .petal:nth-child(6) { transform: rotate(300deg) translateY(-20px); }
+    .flower.rose .center {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #8d021f;
+      border-radius: 50%;
+      top: 70%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ----- FIORE: Azzurro ----- */
+    .flower.violet {
+      top: -50px;
+      left: -80%;
+      width: 60px;
+      height: 60px;
+    }
+    .flower.violet .petal {
+      position: absolute;
+      width: 18px;
+      height: 25px;
+      background-image: radial-gradient(#d945d4, #c206bc);
+      border-radius: 100%;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+    }
+    /* 6 petali distribuiti ogni 60° */
+    .flower.violet .petal:nth-child(1) { transform: rotate(0deg) translateY(-20px); }
+    .flower.violet .petal:nth-child(2) { transform: rotate(60deg) translateY(-20px); }
+    .flower.violet .petal:nth-child(3) { transform: rotate(120deg) translateY(-20px); }
+    .flower.violet .petal:nth-child(4) { transform: rotate(180deg) translateY(-20px); }
+    .flower.violet .petal:nth-child(5) { transform: rotate(240deg) translateY(-20px); }
+    .flower.violet .petal:nth-child(6) { transform: rotate(300deg) translateY(-20px); }
+    .flower.violet .center{
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #f3c7ff;
+      border-radius: 50%;
+      top: 70%;
+      left: 60%;
+      transform: translate(-50%, -50%);
+    }
+    .flower.violet .center1{
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #f3c7ff;
+      border-radius: 50%;
+      top: 70%;
+      left: 60%;
+      transform: translate(10%, 10%);
+    }
+    .flower.violet .center2{
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #f3c7ff;
+      border-radius: 50%;
+      top: 70%;
+      left: 60%;
+      transform: translate(50%, -50%);
+    }
+
+    /* ----- FIORE: MARGHERITA ----- */
+    .flower.daisy {
+      top: -50px;
+      left: 0%;
+      width: 80px;
+      height: 80px;
+    }
+    .flower.daisy .petal {
+      position: absolute;
+      width: 13px;
+      height: 30px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+    }
+    /* 8 petali ogni 45° */
+    .flower.daisy .petal:nth-child(1) { transform: rotate(0deg) translateY(-22px); }
+    .flower.daisy .petal:nth-child(2) { transform: rotate(45deg) translateY(-22px); }
+    .flower.daisy .petal:nth-child(3) { transform: rotate(90deg) translateY(-22px); }
+    .flower.daisy .petal:nth-child(4) { transform: rotate(135deg) translateY(-22px); }
+    .flower.daisy .petal:nth-child(5) { transform: rotate(180deg) translateY(-22px); }
+    .flower.daisy .petal:nth-child(6) { transform: rotate(225deg) translateY(-22px); }
+    .flower.daisy .petal:nth-child(7) { transform: rotate(270deg) translateY(-22px); }
+    .flower.daisy .petal:nth-child(8) { transform: rotate(315deg) translateY(-22px); }
+    .flower.daisy .center {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background-color: yellow;
+      border-radius: 50%;
+      top: 70%;
+      left: 60%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ----- FIORE: GIRASOLE ----- */
+    .flower.sunflower {
+      top: -50px;
+      left: 0%;
+      width: 90px;
+      height: 90px;
+    }
+    .flower.sunflower .petal {
+      position: absolute;
+      width: 15px;
+      height: 40px;
+      background-color: yellow;
+      border-radius: 10px;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+    }
+    /* 12 petali distribuiti ogni 30° */
+    .flower.sunflower .petal:nth-child(1)  { transform: rotate(0deg)   translateY(-30px); }
+    .flower.sunflower .petal:nth-child(2)  { transform: rotate(30deg)  translateY(-30px); }
+    .flower.sunflower .petal:nth-child(3)  { transform: rotate(60deg)  translateY(-30px); }
+    .flower.sunflower .petal:nth-child(4)  { transform: rotate(90deg)  translateY(-30px); }
+    .flower.sunflower .petal:nth-child(5)  { transform: rotate(120deg) translateY(-30px); }
+    .flower.sunflower .petal:nth-child(6)  { transform: rotate(150deg) translateY(-30px); }
+    .flower.sunflower .petal:nth-child(7)  { transform: rotate(180deg) translateY(-30px); }
+    .flower.sunflower .petal:nth-child(8)  { transform: rotate(210deg) translateY(-30px); }
+    .flower.sunflower .petal:nth-child(9)  { transform: rotate(240deg) translateY(-30px); }
+    .flower.sunflower .petal:nth-child(10) { transform: rotate(270deg) translateY(-30px); }
+    .flower.sunflower .petal:nth-child(11) { transform: rotate(300deg) translateY(-30px); }
+    .flower.sunflower .petal:nth-child(12) { transform: rotate(330deg) translateY(-30px); }
+    .flower.sunflower .center {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      background-color: orange;
+      border-radius: 50%;
+      top: 50%;
+      left: 37%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Prato -->
+  <div class="meadow">
+    <!-- Alcuni sprazzi d'erba posizionati casualmente -->
+    <div class="grass anigrass1" style="left: 1%;"></div>
+    <div class="grass anigrass3" style="left: 3%;"></div>
+    <div class="grass anigrass2" style="left: 5%;"></div>
+    <div class="grass anigrass1" style="left: 7%;"></div>
+    <div class="grass anigrass3" style="left: 10%;"></div>
+    <div class="grass anigrass4" style="left: 32%;"></div>
+    <div class="grass anigrass1" style="left: 59%;"></div>
+    <div class="grass anigrass4" style="left: 79%;"></div>
+    <div class="grass anigrass1" style="left: 10%;"></div>
+    <div class="grass anigrass1" style="left: 33%;"></div>
+    <div class="grass anigrass3" style="left: 20%;"></div>
+    <div class="grass anigrass2" style="left: 22%;"></div>
+    <div class="grass anigrass3" style="left: 90%;"></div>
+    <div class="grass anigrass3" style="left: 91%;"></div>
+    <div class="grass anigrass1" style="left: 55%;"></div>
+    <div class="grass anigrass3" style="left: 33%;"></div>
+    <div class="grass anigrass1" style="left: 66%;"></div>
+    <div class="grass anigrass4" style="left: 71%;"></div>
+    <div class="grass anigrass3" style="left: 29%;"></div>
+    <div class="grass anigrass2" style="left: 97%;"></div>
+    <div class="grass anigrass1" style="left: 83%;"></div>
+    <div class="grass anigrass3" style="left: 41%;"></div>
+    <div class="grass anigrass4" style="left: 44%;"></div>
+    <div class="grass anigrass3" style="left: 39%;"></div>
+    <div class="grass anigrass2" style="left: 48%;"></div>
+  </div>
+
+  <!-- Mazzo di fiori -->
+  <div class="bouquet">
+    <!-- Fiore: Rosa -->
+    <div class="stem stem-rose swing1">
+      <div class="flower rose">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <!-- Fiore: Margherita -->
+    <div class="stem stem-daisy swing2">
+      <div class="flower daisy">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-rose swing2">
+      <div class="flower rose">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+
+    <!-- Fiore: Girasole -->
+    <div class="stem stem-sunflower swing3">
+      <div class="flower sunflower">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-daisy swing1">
+      <div class="flower daisy">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-rose swing1">
+      <div class="flower rose">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-violet swing1">
+      <div class="flower violet">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+        <div class="center1"></div>
+        <div class="center2"></div>
+      </div>
+    </div>
+    <div class="stem stem-rose swing1">
+      <div class="flower rose">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-daisy swing3">
+      <div class="flower daisy">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-sunflower swing1">
+      <div class="flower sunflower">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-violet swing1">
+      <div class="flower violet">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+        <div class="center1"></div>
+        <div class="center2"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
