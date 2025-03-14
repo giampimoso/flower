@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testo Animato</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mazzo di Fiori Animato con Prato</title>
   <style>
     /* Impostazioni di base */
@@ -76,6 +80,7 @@
       border-radius: 5px;
       display: flex;
       flex-direction: column;
+
     }
     .stem::before, .stem::after {
       content: "";
@@ -85,13 +90,30 @@
       background-color: darkgreen;
       border-radius: 50%;
     }
+    .stem-red::before, .stem-red::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 3px;
+      background-color: darkgreen;
+      border-radius: 50%;
+    }
     .stem::before { top: 40%; left: -15px; }
     .stem::after { top: 60%; right: -15px; }
+    .stem-red::before { top: 30%; left: -10px; }
+    .stem-red::after { top: 60%; right: -10px; }
 
     /* Varianti di lunghezza per gli steli */
     .stem.stem-rose    { height: 90px; }
     .stem.stem-daisy   { height: 130px; }
     .stem.stem-sunflower { height: 210px; }
+    .stem.stem-red {
+
+        height: 140px;
+        width: 4px;
+        background: linear-gradient(to top, #004209, #66bb6a);
+    }
+
 
     /* Animazioni di oscillazione degli steli */
     .swing1 { animation: swing1 3s infinite ease-in-out alternate; }
@@ -134,7 +156,7 @@
       position: absolute;
       width: 25px;
       height: 25px;
-      background-image: radial-gradient(#e63946, #c20606);
+      background-image: radial-gradient(#0f7ab8, #045585);
       border-radius: 50%;
       top: 50%;
       left: 50%;
@@ -151,14 +173,39 @@
       position: absolute;
       width: 20px;
       height: 20px;
-      background-color: #8d021f;
+      background-color: #012940;
       border-radius: 50%;
       top: 70%;
       left: 70%;
       transform: translate(-50%, -50%);
     }
 
-    /* ----- FIORE: Azzurro ----- */
+
+      /* ----- FIORE: red ----- */
+      .flower.red {
+        top: -50px;
+        left: -250%;
+        width: 60px;
+        height: 60px;
+      }
+      .flower.red .petal {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background-image: radial-gradient(#e63946, #c20606);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+      }
+      /* 6 petali distribuiti ogni 60° */
+      .flower.red .petal:nth-child(1) { transform: rotate(0deg) translateY(-20px); }
+      .flower.red .petal:nth-child(2) { transform: rotate(30deg) translateY(-20px); }
+      .flower.red .petal:nth-child(3) { transform: rotate(40deg) translateY(-20px); }
+      .flower.red .petal:nth-child(4) { transform: rotate(180deg) translateY(-0px); }
+      .flower.red .petal:nth-child(5) { transform: rotate(320deg) translateY(-20px); }
+      .flower.red .petal:nth-child(6) { transform: rotate(330deg) translateY(-20px); }
+    /* ----- FIORE: Violet ----- */
     .flower.violet {
       top: -50px;
       left: -80%;
@@ -290,9 +337,36 @@
       top: 50%;
       left: 37%;
     }
+    @keyframes slideIn {
+           from { transform: translateX(-150px); opacity: 0; }
+           to { transform: translateX(0); opacity: 1; }
+       }
+
+       text {
+           font-size: 30px;
+           font-family: 'Pacifico', cursive;
+           fill: gold;
+           stroke: black;
+           stroke-width: 1;
+           opacity: 0; /* Inizialmente nascosto */
+       }
+
+       .show {
+           animation: slideIn 1.5s ease-out forwards;
+       }
   </style>
 </head>
+
 <body>
+  <script>
+    function showText() {
+        document.getElementById("giftText").classList.add("show");
+    }
+  </script>
+  <svg width="400" height="200" viewBox="0 0 400 200">
+      <text id="giftText" x="50" y="100">Meluji te lasko</text>
+    </svg>
+
   <!-- Prato -->
   <div class="meadow">
     <!-- Alcuni sprazzi d'erba posizionati casualmente -->
@@ -324,7 +398,7 @@
   </div>
 
   <!-- Mazzo di fiori -->
-  <div class="bouquet">
+  <div class="bouquet" onclick="showText()">
     <!-- Fiore: Rosa -->
     <div class="stem stem-rose swing1">
       <div class="flower rose">
@@ -350,6 +424,19 @@
         <div class="petal"></div>
         <div class="petal"></div>
         <div class="center"></div>
+      </div>
+    </div>
+    <!-- Fiore: Margherita -->
+    <div class="stem stem-red swing2">
+      <div class="flower red">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
       </div>
     </div>
     <div class="stem stem-rose swing2">
@@ -382,6 +469,7 @@
         <div class="center"></div>
       </div>
     </div>
+
     <div class="stem stem-daisy swing1">
       <div class="flower daisy">
         <div class="petal"></div>
@@ -393,6 +481,18 @@
         <div class="petal"></div>
         <div class="petal"></div>
         <div class="center"></div>
+      </div>
+    </div>
+    <div class="stem stem-red swing1">
+      <div class="flower red">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
       </div>
     </div>
     <div class="stem stem-rose swing1">
@@ -436,6 +536,7 @@
         <div class="center"></div>
       </div>
     </div>
+
     <div class="stem stem-daisy swing3">
       <div class="flower daisy">
         <div class="petal"></div>
@@ -483,6 +584,18 @@
         <div class="center"></div>
         <div class="center1"></div>
         <div class="center2"></div>
+      </div>
+    </div>
+    <div class="stem stem-red swing1">
+      <div class="flower red">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
       </div>
     </div>
   </div>
