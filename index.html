@@ -21,8 +21,8 @@
     }
     /* Prato */
     .meadow {
+      bottom: 15px; /* sopra il prato */
       position: absolute;
-      bottom: 0;
       width: 100%;
       height: 120px;
       background: linear-gradient(to top, #388e3c, transparent);
@@ -64,7 +64,7 @@
     /* Container dei fiori */
     .bouquet {
       position: absolute;
-      bottom: 0px; /* sopra il prato */
+      bottom: 15px; /* sopra il prato */
       width: 100%;
       display: flex;
       justify-content: space-evenly;
@@ -143,6 +143,40 @@
       position: absolute;
       transform: translateX(-50%);
       position: relative;
+    }
+
+    .flower.roser {
+      top: -50px;
+      left: -80%;
+      width: 60px;
+      height: 60px;
+    }
+    .flower.roser .petal {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-image: radial-gradient(#e63946, #c20606);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+    }
+    /* 6 petali distribuiti ogni 60° */
+    .flower.roser .petal:nth-child(1) { transform: rotate(0deg) translateY(-20px); }
+    .flower.roser .petal:nth-child(2) { transform: rotate(60deg) translateY(-20px); }
+    .flower.roser .petal:nth-child(3) { transform: rotate(120deg) translateY(-20px); }
+    .flower.roser .petal:nth-child(4) { transform: rotate(180deg) translateY(-20px); }
+    .flower.roser .petal:nth-child(5) { transform: rotate(240deg) translateY(-20px); }
+    .flower.roser .petal:nth-child(6) { transform: rotate(300deg) translateY(-20px); }
+    .flower.roser .center {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #8d021f;
+      border-radius: 50%;
+      top: 70%;
+      left: 70%;
+      transform: translate(-50%, -50%);
     }
 
     /* ----- FIORE: ROSA ----- */
@@ -401,7 +435,7 @@
   <div class="bouquet" onclick="showText()">
     <!-- Fiore: Rosa -->
     <div class="stem stem-rose swing1">
-      <div class="flower rose">
+      <div class="flower roser">
         <div class="petal"></div>
         <div class="petal"></div>
         <div class="petal"></div>
@@ -496,7 +530,7 @@
       </div>
     </div>
     <div class="stem stem-rose swing1">
-      <div class="flower rose">
+      <div class="flower roser">
         <div class="petal"></div>
         <div class="petal"></div>
         <div class="petal"></div>
@@ -537,6 +571,7 @@
       </div>
     </div>
 
+
     <div class="stem stem-daisy swing3">
       <div class="flower daisy">
         <div class="petal"></div>
@@ -567,6 +602,17 @@
         <div class="center"></div>
       </div>
     </div>
+    <div class="stem stem-rose swing1">
+      <div class="flower roser">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
+      </div>
+    </div>
     <div class="stem stem-violet swing1">
       <div class="flower violet">
         <div class="petal"></div>
@@ -584,6 +630,19 @@
         <div class="center"></div>
         <div class="center1"></div>
         <div class="center2"></div>
+      </div>
+    </div>
+    <div class="stem stem-daisy swing3">
+      <div class="flower daisy">
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="petal"></div>
+        <div class="center"></div>
       </div>
     </div>
     <div class="stem stem-red swing1">
